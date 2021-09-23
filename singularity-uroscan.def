@@ -1,6 +1,5 @@
-Bootstrap: docker
-From: centos:centos7.6.1810
-
+Bootstrap:docker
+From:nfcore/base
 
 %environment
     export PATH=$PATH:/opt/software/conda/bin/
@@ -9,9 +8,14 @@ From: centos:centos7.6.1810
 %files
 
 %post
-    yum -y install epel-release wget which nano curl zlib-devel
-    yum -y groupinstall "Development Tools"
-    yum -y install tbb ## https://www.metagenomics.wiki/tools/bowtie2/install/libtbb-so-2
+  #  yum -y install epel-release wget which nano curl zlib-devel
+  #  yum -y groupinstall "Development Tools"
+  #   yum -y install tbb ## https://www.metagenomics.wiki/tools/bowtie2/install/libtbb-so-2
+    rm -rf /var/lib/apt/lists/*
+    apt-get -y clean
+    apt-get -y update
+
+    apt-get -y install apt-utils curl libz-dev build-essential gettext cmake libxml2-dev make libcurl4-openssl-dev libssl-dev libbz2-dev libboost-dev sudo tree
 
 
     mkdir -p /opt/software
@@ -34,8 +38,16 @@ From: centos:centos7.6.1810
       salmon=0.13.1
 
 
-    source /opt/software/conda/bin/activate /opt/software/uroscan_env
+    # source /opt/software/conda/bin/activate /opt/software/uroscan_env
+    # cd /opt/software
+
+    conda init bash # Modifies .bashrc on your host machine
+    source .bashrc # Loads modified .bashrc
+    export LC_ALL=C.UTF-8 # Sets locale to UTF-8
+    export LANG=C.UTF-8 # Sets locale to UTF-8
+    conda activate /opt/software/ctg_rnaseq_env
     cd /opt/software
+
 
 %runscript
     echo "Welcome to the Uroscan container"
