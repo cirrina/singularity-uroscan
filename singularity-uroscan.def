@@ -15,7 +15,7 @@ From:nfcore/base
     apt-get -y clean
     apt-get -y update
 
-    apt-get -y install apt-utils curl libz-dev build-essential gettext cmake libxml2-dev make libcurl4-openssl-dev libssl-dev libbz2-dev libboost-dev sudo tree
+    apt-get -y install apt-utils curl libz-dev build-essential gettext cmake libxml2-dev make libcurl4-openssl-dev libssl-dev libbz2-dev libboost-dev libtbb2 sudo tree
 
 
     mkdir -p /opt/software
@@ -37,14 +37,16 @@ From:nfcore/base
       sambamba=0.6.8 \
       salmon=0.13.1
 
+    apt-get -y clean
+    rm -rf /var/lib/apt/lists/*
 
     # source /opt/software/conda/bin/activate /opt/software/uroscan_env
     # cd /opt/software
 
     # conda init bash # Modifies .bashrc on your host machine
     # source .bashrc # Loads modified .bashrc
-    # export LC_ALL=C.UTF-8 # Sets locale to UTF-8
-    # export LANG=C.UTF-8 # Sets locale to UTF-8
+    export LC_ALL=sv_SE.UTF-8 # export LC_ALL=C.UTF-8 # Sets locale to UTF-8
+    export LANG=sv_SE.UTF-8 # export LANG=C.UTF-8 # Sets locale to UTF-8
     # conda activate /opt/software/ctg_rnaseq_env
     # cd /opt/software
 
